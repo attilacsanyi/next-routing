@@ -1,18 +1,25 @@
+import { DUMMY_NEWS } from "@/libs/news-dao";
+import Image from "next/image";
 import Link from "next/link";
 
 const NewsPage = () => {
-  const news = [
-    { id: "1", title: "First News" },
-    { id: "2", title: "Second News" },
-  ];
+  const news = DUMMY_NEWS;
 
   return (
     <>
       <h1>News Page</h1>
-      <ul>
+      <ul className="news-list">
         {news.map((news) => (
           <li key={news.id}>
-            <Link href={`/news/${news.id}`}>{news.title}</Link>
+            <Link href={`/news/${news.slug}`}>
+              <Image
+                src={`/images/news/${news.image}`}
+                alt={news.title}
+                width={300}
+                height={200}
+              />
+              <span>{news.title}</span>
+            </Link>
           </li>
         ))}
       </ul>
