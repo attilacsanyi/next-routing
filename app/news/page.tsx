@@ -1,9 +1,9 @@
-import { DUMMY_NEWS } from "@/libs/news-dao";
+import { getAllNews } from "@/libs/news-dao";
 import Image from "next/image";
 import Link from "next/link";
 
 const NewsPage = () => {
-  const news = DUMMY_NEWS;
+  const news = getAllNews();
 
   return (
     <>
