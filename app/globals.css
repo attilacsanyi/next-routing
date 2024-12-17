@@ -141,6 +141,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .news-article img {
@@ -163,6 +164,7 @@ ul {
   box-shadow: 0 0 10px 0 #181817;
   max-width: 50rem;
   width: 100%;
+  z-index: 1000;
 }
 
 .modal h2,
