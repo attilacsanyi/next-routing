@@ -206,5 +206,5 @@ ul {
 }
 
 .fullscreen-image img {
-  object-fit: cover;
+  object-fit: contain;
 }
