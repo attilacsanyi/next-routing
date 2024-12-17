@@ -1,4 +1,4 @@
-import { getAllNews } from "@/libs/news-dao";
+import { getAllNewsBySlug } from "@/libs/news-dao";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -8,7 +8,7 @@ const NewsDetailPage = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-  const news = getAllNews().find((news) => news.slug === slug);
+  const news = getAllNewsBySlug(slug);
 
   if (!news) {
     notFound();

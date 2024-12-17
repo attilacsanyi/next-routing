@@ -2,6 +2,9 @@ import { DUMMY_NEWS } from "@/libs/news-data";
 
 export const getAllNews = () => DUMMY_NEWS;
 
+export const getAllNewsBySlug = (slug: string) =>
+  getAllNews().find((news) => news.slug === slug);
+
 export const getLatestNews = () => DUMMY_NEWS.slice(0, 3);
 
 export const getAvailableNewsYears = () =>
