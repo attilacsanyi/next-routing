@@ -16,10 +16,12 @@ const InterceptedImagePage = async ({
 
   return (
     <>
-      <h2>Intercepted route!</h2>
-      <div className="fullscreen-image">
-        <Image src={`/images/news/${news.image}`} alt={news.title} fill />
-      </div>
+      <div className="modal-backdrop"></div>
+      <dialog className="modal" open>
+        <div className="fullscreen-image">
+          <Image src={`/images/news/${news.image}`} alt={news.title} fill />
+        </div>
+      </dialog>
     </>
   );
 };
