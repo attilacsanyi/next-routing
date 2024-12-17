@@ -199,3 +199,12 @@ ul {
   text-align: center;
   margin-top: 3rem;
 }
+
+.fullscreen-image {
+  position: relative;
+  height: 100vh;
+}
+
+.fullscreen-image img {
+  object-fit: cover;
+}

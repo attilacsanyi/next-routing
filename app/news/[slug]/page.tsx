@@ -1,5 +1,6 @@
 import { getAllNewsBySlug } from "@/libs/news-dao";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const NewsDetailPage = async ({
@@ -18,7 +19,9 @@ const NewsDetailPage = async ({
     <article className="news-article">
       <header>
         <div className="news-article-header-image">
-          <Image src={`/images/news/${news.image}`} alt={news.title} fill />
+          <Link href={`/news/${news.slug}/image`}>
+            <Image src={`/images/news/${news.image}`} alt={news.title} fill />
+          </Link>
         </div>
         <h1>{news.title}</h1>
         <time dateTime={news.date}>{news.date}</time>
