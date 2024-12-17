@@ -1,3 +1,4 @@
+import ModalBackdrop from "@/components/modal-backdrop";
 import { getAllNewsBySlug } from "@/libs/news-dao";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -16,7 +17,7 @@ const InterceptedImagePage = async ({
 
   return (
     <>
-      <div className="modal-backdrop"></div>
+      <ModalBackdrop />
       <dialog className="modal" open>
         <div className="fullscreen-image">
           <Image src={`/images/news/${news.image}`} alt={news.title} fill />
