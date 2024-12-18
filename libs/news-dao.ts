@@ -1,11 +1,15 @@
-import { DUMMY_NEWS } from "@/libs/news-data";
+import { News } from "@/libs/news.types";
+import sqlite from "better-sqlite3";
 
-export const getAllNews = () => DUMMY_NEWS;
+const db = sqlite("data.db");
+
+export const getAllNews = () =>
+  db.prepare("SELECT * FROM news").all() as News[];
 
 export const getAllNewsBySlug = (slug: string) =>
   getAllNews().find((news) => news.slug === slug);
 
-export const getLatestNews = () => DUMMY_NEWS.slice(0, 3);
+export const getLatestNews = () => getAllNews().slice(0, 3);
 
 export const getAvailableNewsYears = () =>
   getAllNews()
