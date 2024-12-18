@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next Routing
 
-## Getting Started
+![Next.js 15](https://img.shields.io/badge/-Next.js%2015-000000?style=flat-square&logo=next.js)
+![React 19](https://img.shields.io/badge/-React%2019-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 
-First, run the development server:
+A comprehensive demonstration of Next.js 15's **advanced routing capabilities** and patterns based on [Maximilian Schwarzmüller's Udemy course](https://www.udemy.com/course/react-the-complete-guide-incl-redux).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Next Routing Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Route Groups
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Content Routes (`(content)`)
+  - `/news` - Main news listing
+  - `/archive` - News archive
+- Landing Routes (`(landing)`)
+  - `/` - Homepage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Parallel Routes
 
-## Learn More
+- Archive Page with Parallel Routes
+  - `@archive` - Filter component
+  - `@latest` - Latest news section
+    Example: `/archive/2024/3`
 
-To learn more about Next.js, take a look at the following resources:
+### Intercepting Routes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Modal Image View
+  - `(.)/image` - Intercepts full image view
+    Example: `/news/hiking/image`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dynamic Routes
 
-## Deploy on Vercel
+- News Detail Pages
+  - `/news/[slug]` - Individual news articles
+    Example: `/news/will-ai-replace-humans`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Catch-all Routes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Archive Filter
+  - `/archive/[[...filter]]` - Handles year/month filtering
+    Example: `/archive/2024` or `/archive/2024/3`
+
+### Special Files
+
+- `layout.tsx` - Shared layouts
+- `not-found.tsx` - Custom 404 pages
+- `error.tsx` - Error boundaries
+- `default.tsx` - Default UI for parallel routes
+
+## Screenshots
+
+Home Page
+
+<img src="public/readme/next-routing-home.png" width="500" alt="Home Page" />
+
+Archive Page
+
+<img src="public/readme/next-routing-archive.png" width="500" alt="Archive Page" />
+
+News Page
+
+<img src="public/readme/next-routing-news.png" width="500" alt="News Page" />
+
+News Details Page
+
+<img src="public/readme/next-routing-news-details.png" width="500" alt="News Details Page" />
