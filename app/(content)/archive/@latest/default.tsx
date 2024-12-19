@@ -1,8 +1,8 @@
 import NewsList from "@/components/news-list";
 import { getLatestNews } from "@/libs/news-dao";
 
-const LatestNewsDefaultPage = () => {
-  const latestNews = getLatestNews();
+const LatestNewsDefaultPage = async () => {
+  const latestNews = await getLatestNews();
 
   return (
     <>

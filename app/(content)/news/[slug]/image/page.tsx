@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 const ImagePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
-  const news = getAllNewsBySlug(slug);
+  const news = await getAllNewsBySlug(slug);
 
   if (!news) {
     notFound();

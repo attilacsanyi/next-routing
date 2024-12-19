@@ -1,8 +1,8 @@
 import NewsList from "@/components/news-list";
 import { getAllNews } from "@/libs/news-dao";
 
-const NewsPage = () => {
-  const news = getAllNews();
+const NewsPage = async () => {
+  const news = await getAllNews();
 
   return (
     <>
