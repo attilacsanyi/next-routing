@@ -3,8 +3,8 @@ import sqlite from "better-sqlite3";
 
 const db = sqlite("data.db");
 
-const simulateSlowResponse = () => {
-  return new Promise((resolve) => setTimeout(resolve, 1000));
+const simulateSlowResponse = (ms: number = 2000) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 export const getAllNews = async () => {
@@ -42,7 +42,7 @@ export const getAvailableNewsYears = async () => {
 
   const years = select.map((year) => +year.year);
 
-  // await simulateSlowResponse();
+  await simulateSlowResponse(0);
 
   return years;
 };
@@ -57,7 +57,7 @@ export const getAvailableNewsMonths = async (year: number) => {
 
   const months = select.map((month) => +month.month);
 
-  // await simulateSlowResponse();
+  await simulateSlowResponse(0);
 
   return months;
 };
