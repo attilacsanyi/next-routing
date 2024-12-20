@@ -42,7 +42,7 @@ export const getAvailableNewsYears = async () => {
 
   const years = select.map((year) => +year.year);
 
-  await simulateSlowResponse(0);
+  await simulateSlowResponse(1000);
 
   return years;
 };
@@ -57,7 +57,7 @@ export const getAvailableNewsMonths = async (year: number) => {
 
   const months = select.map((month) => +month.month);
 
-  await simulateSlowResponse(0);
+  await simulateSlowResponse(1000);
 
   return months;
 };

@@ -31,6 +31,50 @@ const FilteredArchives = async ({
   return newsContent;
 };
 
+const ArchivesFilter = async ({
+  year,
+  month,
+}: {
+  year?: string;
+  month?: string;
+}) => {
+  const availableYears = await getAvailableNewsYears();
+  let links = availableYears;
+
+  if (
+    (year && !availableYears.includes(+year)) ||
+    (year && month && !(await getAvailableNewsMonths(+year)).includes(+month))
+  ) {
+    throw new Error("Invalid archive filter");
+  }
+
+  if (year && !month) {
+    links = await getAvailableNewsMonths(+year);
+  }
+
+  if (year && month) {
+    links = [];
+  }
+
+  return (
+    <header id="archive-header">
+      <nav>
+        <ul>
+          {links.map((link) => {
+            const href = year ? `/archive/${year}/${link}` : `/archive/${link}`;
+
+            return (
+              <li key={link}>
+                <Link href={href}>{link}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
 const ArchiveYearPage = async ({
   params,
 }: {
@@ -41,45 +85,11 @@ const ArchiveYearPage = async ({
   const selectedYear = filter?.[0];
   const selectedMonth = filter?.[1];
 
-  const availableYears = await getAvailableNewsYears();
-  let links = availableYears;
-
-  if (selectedYear && !selectedMonth) {
-    links = await getAvailableNewsMonths(+selectedYear);
-  }
-
-  if (selectedYear && selectedMonth) {
-    links = [];
-  }
-
-  if (
-    (selectedYear && !availableYears.includes(+selectedYear)) ||
-    (selectedYear &&
-      selectedMonth &&
-      !(await getAvailableNewsMonths(+selectedYear)).includes(+selectedMonth))
-  ) {
-    throw new Error("Invalid archive filter");
-  }
-
   return (
     <>
-      <header id="archive-header">
-        <nav>
-          <ul>
-            {links.map((link) => {
-              const href = selectedYear
-                ? `/archive/${selectedYear}/${link}`
-                : `/archive/${link}`;
-
-              return (
-                <li key={link}>
-                  <Link href={href}>{link}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </header>
+      <Suspense fallback={<p>Loading archive filter...</p>}>
+        <ArchivesFilter year={selectedYear} month={selectedMonth} />
+      </Suspense>
 
       <Suspense fallback={<p>Loading archive details...</p>}>
         <FilteredArchives year={selectedYear} month={selectedMonth} />
