@@ -5,8 +5,31 @@ import {
   getNewsForYear,
   getNewsForYearAndMonth,
 } from "@/libs/news-dao";
-import { News } from "@/libs/news.types";
 import Link from "next/link";
+import { Suspense } from "react";
+
+const FilteredArchives = async ({
+  year,
+  month,
+}: {
+  year?: string;
+  month?: string;
+}) => {
+  let news;
+  if (year && !month) {
+    news = await getNewsForYear(+year);
+  } else if (year && month) {
+    news = await getNewsForYearAndMonth(+year, +month);
+  }
+
+  let newsContent = <p>No news found for the selected period.</p>;
+
+  if (news && news.length > 0) {
+    newsContent = <NewsList news={news} />;
+  }
+
+  return newsContent;
+};
 
 const ArchiveYearPage = async ({
   params,
@@ -18,28 +41,19 @@ const ArchiveYearPage = async ({
   const selectedYear = filter?.[0];
   const selectedMonth = filter?.[1];
 
-  let news: News[] | undefined;
-  let links = await getAvailableNewsYears();
+  const availableYears = await getAvailableNewsYears();
+  let links = availableYears;
 
   if (selectedYear && !selectedMonth) {
-    news = await getNewsForYear(+selectedYear);
     links = await getAvailableNewsMonths(+selectedYear);
   }
 
   if (selectedYear && selectedMonth) {
-    news = await getNewsForYearAndMonth(+selectedYear, +selectedMonth);
     links = [];
   }
 
-  let newsContent = <p>No news found for the selected period.</p>;
-
-  if (news && news.length > 0) {
-    newsContent = <NewsList news={news} />;
-  }
-
   if (
-    (selectedYear &&
-      !(await getAvailableNewsYears()).includes(+selectedYear)) ||
+    (selectedYear && !availableYears.includes(+selectedYear)) ||
     (selectedYear &&
       selectedMonth &&
       !(await getAvailableNewsMonths(+selectedYear)).includes(+selectedMonth))
@@ -67,7 +81,9 @@ const ArchiveYearPage = async ({
         </nav>
       </header>
 
-      {newsContent}
+      <Suspense fallback={<p>Loading archive details...</p>}>
+        <FilteredArchives year={selectedYear} month={selectedMonth} />
+      </Suspense>
     </>
   );
 };
